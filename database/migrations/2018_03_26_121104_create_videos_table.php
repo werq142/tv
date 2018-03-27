@@ -20,7 +20,7 @@ class CreateVideosTable extends Migration
             $table->text('description');
             $table->text('imdb');
             $table->integer('age_control');
-            $table->date('date_created');
+            $table->date('published_date');
             $table->string('video_logo');
             $table->string('video_background');
             $table->string('video_file');

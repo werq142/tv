@@ -16,7 +16,6 @@ class CategoriesController extends Controller
 
     public function store()
     {
-        //$file->move(storage_path() . '/img',$image_name);
         $this->validate(request(),[
             'category_name' => 'required|max:32',
             'category_image' => 'required|mimes:png,jpeg,jpg'
@@ -60,8 +59,7 @@ class CategoriesController extends Controller
         }
         if ($request['category_image'])
         {
-            //$url = Storage::url($category->category_image).'/'.$category->category_image;
-            File::Delete($category->category_image);
+            File::Delete(storage_path('app/' . $category->category_image));
             $file = $request->file('category_image');
             $image_name =  $file->store('images');
             $category->category_image = $image_name;
@@ -73,9 +71,7 @@ class CategoriesController extends Controller
 
     public function delete(Category $category)
     {
-        $request = request();
-        //$url = Storage::url($category->category_image).'/'.$category->category_image;
-        File::Delete($category->category_image);
+        File::Delete(storage_path('app/' . $category->category_image));
         $category->delete();
 
         return redirect('/categories');
