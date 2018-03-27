@@ -1,0 +1,28 @@
+@extends ('layouts.master')
+
+@section ('content')
+
+    <div class="container">
+        <h2>Edit {{ $category->category_name }}</h2>
+        <form method="POST" action="/categories/{{ $category->id }}/save" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label for="category_name">Category name:</label>
+                <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{ $category->category_name }}">
+            </div>
+
+            <div class="form-group">
+                <label for="category_image">Category image:</label>
+                <input type="file" class="form-control" id="category_image" name="category_image" placeholder="{{ $category->category_image }}">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+            @include ('layouts.errors')
+
+        </form>
+
+    </div>
+@endsection
