@@ -8,12 +8,12 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="category_name">Category name:</label>
-                <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{ $category->category_name }}">
+                <input type="text" class="form-control" id="category_name" name="category_name" value="{{ $category->category_name }}">
             </div>
 
             <div class="form-group">
                 <label for="category_image">Category image:</label>
-                <input type="file" class="form-control" id="category_image" name="category_image" placeholder="{{ $category->category_image }}">
+                <input type="file" class="form-control" id="category_image" name="category_image">
             </div>
 
             <div class="form-group">

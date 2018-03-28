@@ -20,13 +20,12 @@ class CategoriesController extends Controller
         return view('categories.add');
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $this->validate(request(),[
             'category_name' => 'required|max:32',
             'category_image' => 'required|mimes:png,jpeg,jpg'
         ]);
-        $request = request();
         $file = $request->file('category_image');
         $image_name =  $file->store('images');
         Category::create([
@@ -52,17 +51,13 @@ class CategoriesController extends Controller
         return view('categories.edit', compact('category'));
     }
 
-    public function save(Category $category)
+    public function save(Category $category, Request $request)
     {
         $this->validate(request(),[
             'category_name' => 'max:32',
             'category_image' => 'mimes:png,jpeg'
         ]);
-        $request = request();
-        if ($request['category_name'])
-        {
-            $category->category_name = $request['category_name'];
-        }
+        $category->category_name = $request['category_name'];
         if ($request['category_image'])
         {
             File::Delete(storage_path('app/' . $category->category_image));
