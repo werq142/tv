@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\Category;
+use App\Models\Video;
 
 class CategoriesController extends Controller
 {
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     public function add()
     {
         return view('categories.add');

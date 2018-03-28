@@ -3,10 +3,11 @@
 @section ('content')
 
     <div class="container">
-        <h2>All categories</h2>
+        <h2>All videos</h2>
         @foreach ($videos as $video)
             <div>
-                {{ $video->video_name }}
+                <span>Name: {{ $video->video_name }}</span>
+                <span>Description: {{ $video->description }}</span>
 
                 <a href="/videos/{{ $video->id }}/delete"><button class="btn btn-danger">Delete</button></a>
             </div>
