@@ -27,7 +27,11 @@ class CategoriesController extends Controller
             'category_image' => 'required|mimes:png,jpeg,jpg'
         ]);
         $file = $request->file('category_image');
-        $image_name =  $file->store('images');
+        //$image_name =  $file->store('images');
+        $image_name = uniqid();
+        $image_name = $image_name.'.png';
+        $file->move(public_path() . '/images/categories', $image_name);
+        $image_name = 'images/categories/'.$image_name;
         Category::create([
             'category_name' => $request['category_name'],
             'category_image' => $image_name,
@@ -60,9 +64,12 @@ class CategoriesController extends Controller
         $category->category_name = $request['category_name'];
         if ($request['category_image'])
         {
-            File::Delete(storage_path('app/' . $category->category_image));
+            File::Delete(public_path($category->category_image));
             $file = $request->file('category_image');
-            $image_name =  $file->store('images');
+            $image_name = uniqid();
+            $image_name = $image_name.'.png';
+            $file->move(public_path() . '/images/categories', $image_name);
+            $image_name = 'images/categories/'.$image_name;
             $category->category_image = $image_name;
         }
         $category->save();

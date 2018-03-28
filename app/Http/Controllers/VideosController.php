@@ -38,13 +38,22 @@ class VideosController extends Controller
         ]);
 
         $video_logo = $request->file('video_logo');
-        $video_logo_name = $video_logo->store('images/logos');
+        $video_logo_name = uniqid();
+        $video_logo_name = $video_logo_name.'.png';
+        $video_logo->move(public_path() . '/images/logos',  $video_logo_name);
+        $video_logo_name = 'images/logos/'.$video_logo_name;
 
         $video_background = $request->file('video_background');
-        $video_background_name = $video_background->store('images/backgrounds');
+        $video_background_name = uniqid();
+        $video_background_name = $video_background_name.'.png';
+        $video_background->move(public_path() . '/images/backgrounds', $video_background_name);
+        $video_background_name = 'images/backgrounds/'.$video_background_name;
 
         $video_file = $request->file('video_file');
-        $video_file_name = $video_file->store('videos');
+        $video_file_name = uniqid();
+        $video_file_name = $video_file_name.'.mp4';
+        $video_file->move(public_path() . '/all_videos', $video_file_name);
+        $video_file_name = 'all_videos/'.$video_file_name;
 
         Video::create([
             'video_name' => $request['video_name'],
@@ -67,10 +76,6 @@ class VideosController extends Controller
     public function show()
     {
         $videos = Video::all();
-        for ($i = 0; $i < 1; $i++) {
-            $videos[$i]->video_background = storage_path('app/' . $videos[$i]->video_background);
-            $videos[$i]->video_background = str_replace('\\', '/', $videos[$i]->video_background);
-        }
 
         return view('videos.all', compact('videos'));
     }
@@ -92,7 +97,7 @@ class VideosController extends Controller
             'published_date' => 'required',
             'video_logo' => 'mimes:png,jpeg,jpg',
             'video_background' => 'mimes:png,jpeg,jpg',
-            'video_file' => 'mimes:mp4',
+            'video_file' => 'mimes:mp4,webm',
             'category' => 'required'
         ]);
         $video->video_name = $request['video_name'];
@@ -103,26 +108,35 @@ class VideosController extends Controller
 
         if ($request['video_logo'])
         {
-            File::Delete(storage_path('app/' . $video->video_logo));
-            $file = $request->file('video_logo');
-            $image_name =  $file->store('images/logos');
-            $video->video_logo = $image_name;
+            File::Delete(public_path($video->video_logo));
+            $video_logo = $request->file('video_logo');
+            $video_logo_name = uniqid();
+            $video_logo_name = $video_logo_name.'.png';
+            $video_logo->move(public_path() . '/images/logos',  $video_logo_name);
+            $video_logo_name = 'images/logos/'.$video_logo_name;
+            $video->video_logo = $video_logo_name;
         }
 
         if ($request['video_background'])
         {
-            File::Delete(storage_path('app/' . $video->video_background));
-            $file = $request->file('video_background');
-            $image_name =  $file->store('images/backgrounds');
-            $video->video_background = $image_name;
+            File::Delete(public_path($video->video_background));
+            $video_background = $request->file('video_background');
+            $video_background_name = uniqid();
+            $video_background_name = $video_background_name.'.png';
+            $video_background->move(public_path() . '/images/logos',  $video_background_name);
+            $video_background_name = 'images/logos/'.$video_background_name;
+            $video->video_background = $video_background_name;
         }
 
         if ($request['video_file'])
         {
-            File::Delete(storage_path('app/' . $video->video_file));
-            $file = $request->file('video_file');
-            $video_name =  $file->store('videos');
-            $video->video_file = $video_name;
+            File::Delete(public_path($video->video_file));
+            $video_file = $request->file('video_file');
+            $video_file_name = uniqid();
+            $video_file_name = $video_file_name.'.webm';
+            $video_file->move(public_path() . '/all_videos', $video_file_name);
+            $video_file_name = 'all_videos/'.$video_file_name;
+            $video->video_file = $video_file_name;
         }
 
         $video->save();
