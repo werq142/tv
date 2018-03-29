@@ -97,7 +97,7 @@ class VideosController extends Controller
             'published_date' => 'required',
             'video_logo' => 'mimes:png,jpeg,jpg',
             'video_background' => 'mimes:png,jpeg,jpg',
-            'video_file' => 'mimes:mp4,webm',
+            'video_file' => 'mimes:mp4',
             'category' => 'required'
         ]);
         $video->video_name = $request['video_name'];
@@ -133,7 +133,7 @@ class VideosController extends Controller
             File::Delete(public_path($video->video_file));
             $video_file = $request->file('video_file');
             $video_file_name = uniqid();
-            $video_file_name = $video_file_name.'.webm';
+            $video_file_name = $video_file_name.'.mp4';
             $video_file->move(public_path() . '/all_videos', $video_file_name);
             $video_file_name = 'all_videos/'.$video_file_name;
             $video->video_file = $video_file_name;
