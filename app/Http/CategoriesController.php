@@ -3,38 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use App\Models\Category;
+use App\Models\Video;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function videos()
     {
-        $categories = Category::all();
-
-        return view('categories.index', compact('categories'));
+        return $this->hasMany(Video::class);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add()
     {
-        return view('categories.create');
+        return view('categories.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate(request(),[
@@ -55,49 +40,27 @@ class CategoriesController extends Controller
             'message', "You added a category ".$request['category_name']."."
         );
 
-        return action('CategoriesController@index');
+        return redirect('/dashboard/categories');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show()
     {
-        $category = Category::find($id);
+        $categories = Category::all();
 
-        return view('categories.show', compact('category'));
+        return view('categories.all', compact('categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
         return view('categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function save(Category $category, Request $request)
     {
         $this->validate(request(),[
             'category_name' => 'max:32',
             'category_image' => 'mimes:png,jpeg'
         ]);
-        $category = Category::find($id);
         $category->category_name = $request['category_name'];
         if ($request['category_image'])
         {
@@ -111,18 +74,11 @@ class CategoriesController extends Controller
         }
         $category->save();
 
-        return action('CategoriesController@index');
+        return redirect('/dashboard/categories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete(Category $category)
     {
-        $category = Category::find($id);
         File::Delete(storage_path('app/' . $category->category_image));
         $category->delete();
 

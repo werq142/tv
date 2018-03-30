@@ -26,7 +26,7 @@ Route::group([
         'prefix' => '/dashboard'
     ], function() {
 
-    Route::get('', 'CategoriesController@show');
+    /*Route::get('', 'CategoriesController@show');
 
     Route::get('/categories', 'CategoriesController@show');
     Route::get('/categories/add', 'CategoriesController@add');
@@ -34,7 +34,9 @@ Route::group([
     Route::get('/categories/{category}/delete', 'CategoriesController@delete');
 
     Route::post('/categories/store', 'CategoriesController@store');
-    Route::post('/categories/{category}/save', 'CategoriesController@save');
+    Route::post('/categories/{category}/save', 'CategoriesController@save');*/
+
+    Route::resource('categories', 'CategoriesController');
 
     Route::get('/videos', 'VideosController@show');
     Route::get('/videos/add', 'VideosController@add');
