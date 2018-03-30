@@ -4,7 +4,7 @@
 
     <div class="container">
         <h2>Edit {{ $category->category_name }}</h2>
-        <form method="POST" action="/categories/{{ $category->id }}/save" enctype="multipart/form-data">
+        <form method="POST" action="/dashboard/categories/{{ $category->id }}/save" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="category_name">Category name:</label>

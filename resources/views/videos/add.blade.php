@@ -2,9 +2,9 @@
 
 @section ('content')
 
-    <div class="container">
+
         <h2>Add a video</h2>
-        <form method="POST" action="/videos/store" enctype="multipart/form-data">
+        <form method="POST" action="/dashboard/videos/store" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="video_name">Video title:</label>
@@ -62,5 +62,5 @@
             @include ('layouts.errors')
 
         </form>
-    </div>
+
 @endsection

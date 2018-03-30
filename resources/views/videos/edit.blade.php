@@ -4,7 +4,7 @@
 
     <div class="container">
         <h2>Edit {{ $video->video_name }}</h2>
-        <form method="POST" action="/videos/{{ $video->id }}/save" enctype="multipart/form-data">
+        <form method="POST" action="/dashboard/videos/{{ $video->id }}/save" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="video_name">Video title:</label>

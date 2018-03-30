@@ -4,7 +4,7 @@
 
     <div class="container">
         <h2>Add a category</h2>
-        <form method="POST" action="/categories/store" enctype="multipart/form-data">
+        <form method="POST" action="/dashboard/categories/store" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="category_name">Category name:</label>

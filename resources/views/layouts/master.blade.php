@@ -12,6 +12,7 @@
     <header>
        @include ('layouts.nav')
     </header>
+    <div class="container">
 
     @if ($flash = session("message"))
     <div id="flash-message" class="alert alert-success" role="alert">
@@ -22,6 +23,7 @@
     <main role="main">
       		@yield('content')
     </main>
+    </div>
 
     @include ('layouts.footer')
 
