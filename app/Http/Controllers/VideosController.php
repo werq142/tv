@@ -3,28 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\Video;
 use App\Models\Category;
 
 class VideosController extends Controller
 {
-    public function category()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return $this->belongsTo(Category::class);
+        $videos = Video::all();
+
+        return view('videos.index', compact('videos'));
     }
 
-    public function add()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         $categories = Category::all();
 
-        return view('videos.add', compact('categories'));
+        return view('videos.create', compact('categories'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-
         $this->validate(request(),[
             'video_name' => 'required|max:32',
             'video_description' => 'required',
@@ -70,25 +86,46 @@ class VideosController extends Controller
             'message', "You added a video ".$request['video_name']."."
         );
 
-        return redirect('/dashboard/videos');
+        return redirect()->action('VideosController@index');
     }
 
-    public function show()
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        $videos = Video::all();
+        $video = Video::find($id);
 
-        return view('videos.all', compact('videos'));
+        return view('videos.show', compact('video'));
     }
 
-    public function edit(Video $video)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
+        $video = Video::find($id);
         $categories = Category::all();
 
         return view('videos.edit', compact('video', 'categories'));
     }
 
-    public function save(Video $video, Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
+        $video = Video::find($id);
         $this->validate(request(),[
             'video_name' => 'required|max:32',
             'video_description' => 'required',
@@ -141,16 +178,23 @@ class VideosController extends Controller
 
         $video->save();
 
-        return redirect('/dashboard/videos');
+        return redirect()->action('VideosController@index');
     }
 
-    public function delete(Video $video)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
+        $video = Video::find($id);
         File::Delete(storage_path('app/' . $video->video_logo));
         File::Delete(storage_path('app/' . $video->video_background));
         File::Delete(storage_path('app/' . $video->video_file));
         $video->delete();
 
-        return redirect('/dashboard/videos');
+        return redirect()->action('VideosController@index');
     }
 }
