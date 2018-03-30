@@ -40,7 +40,7 @@ class CategoriesController extends Controller
             'message', "You added a category ".$request['category_name']."."
         );
 
-        return redirect('/categories');
+        return redirect('/dashboard/categories');
     }
 
     public function show()
@@ -74,7 +74,7 @@ class CategoriesController extends Controller
         }
         $category->save();
 
-        return redirect('/categories');
+        return redirect('/dashboard/categories');
     }
 
     public function delete(Category $category)
@@ -82,6 +82,6 @@ class CategoriesController extends Controller
         File::Delete(storage_path('app/' . $category->category_image));
         $category->delete();
 
-        return redirect('/categories');
+        return redirect('/dashboard/categories');
     }
 }

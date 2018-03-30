@@ -70,7 +70,7 @@ class VideosController extends Controller
             'message', "You added a video ".$request['video_name']."."
         );
 
-        return redirect('/videos');
+        return redirect('/dashboard/videos');
     }
 
     public function show()
@@ -141,7 +141,7 @@ class VideosController extends Controller
 
         $video->save();
 
-        return redirect('/videos');
+        return redirect('/dashboard/videos');
     }
 
     public function delete(Video $video)
@@ -151,6 +151,6 @@ class VideosController extends Controller
         File::Delete(storage_path('app/' . $video->video_file));
         $video->delete();
 
-        return redirect('/videos');
+        return redirect('/dashboard/videos');
     }
 }
