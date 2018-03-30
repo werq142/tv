@@ -55,7 +55,7 @@ class CategoriesController extends Controller
             'message', "You added a category ".$request['category_name']."."
         );
 
-        return action('CategoriesController@index');
+        return redirect()->action('CategoriesController@index');
     }
 
     /**
@@ -111,7 +111,7 @@ class CategoriesController extends Controller
         }
         $category->save();
 
-        return action('CategoriesController@index');
+        return redirect()->action('CategoriesController@index');
     }
 
     /**
@@ -126,6 +126,6 @@ class CategoriesController extends Controller
         File::Delete(storage_path('app/' . $category->category_image));
         $category->delete();
 
-        return redirect('/dashboard/categories');
+        return redirect()->action('CategoriesController@index');
     }
 }
