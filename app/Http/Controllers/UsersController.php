@@ -8,6 +8,11 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -92,6 +97,7 @@ class UsersController extends Controller
         $this->validate(request(), [
             'name' => 'required|max:32',
             'email' => 'required|email',
+            'avatar' => 'mimes:png,jpeg',
             'password' => 'confirmed',
         ]);
 
@@ -120,7 +126,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->home();
+        return action('UsersController@show', $user->id);
     }
 
     /**

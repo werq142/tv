@@ -17,12 +17,7 @@ Route::get('/categories/{category}', 'MainController@showCategory');
 Route::get('/videos/{video}', 'MainController@showVideo');
 
 //User
-Route::group([
-    'middleware' => 'auth',
-], function() {
-
-    Route::resource('users', 'UsersController',['except' => 'create,store']);
-});
+Route::resource('users', 'UsersController',['except' => 'create,store']);
 
 //Register
 /*Route::get('/register', 'RegistrationController@create');

@@ -4,7 +4,8 @@
 
     <div class="container">
         <h4>Change the data</h4>
-        <form method="POST" action="{{ action('UserController@update', $user->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ action('UsersController@update', $user->id) }}" enctype="multipart/form-data">
+            <input name="_method" type="hidden" value="PATCH">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Name:</label>
