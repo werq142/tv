@@ -25,5 +25,4 @@ class MainController extends Controller
         return view('index.showVideo', compact('video'));
     }
 
-
 }

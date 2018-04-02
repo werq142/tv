@@ -98,9 +98,12 @@ class CategoriesController extends Controller
             'category_name' => 'max:32',
             'category_image' => 'mimes:png,jpeg'
         ]);
+
         $category = Category::find($id);
         $category->category_name = $request['category_name'];
+
         if ($request['category_image']) {
+
             File::Delete(public_path($category->category_image));
             $file = $request->file('category_image');
             $image_name = uniqid();
@@ -109,6 +112,7 @@ class CategoriesController extends Controller
             $image_name = 'images/categories/' . $image_name;
             $category->category_image = $image_name;
         }
+
         $category->save();
 
         return redirect()->action('CategoriesController@index');

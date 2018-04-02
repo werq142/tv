@@ -4,7 +4,7 @@
     <div class="col-sm-8">
         <h1>Register</h1>
 
-        <form method="POST" action="/register">
+        <form method="POST" action="{{ action('UsersController@store') }}">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Name:</label>

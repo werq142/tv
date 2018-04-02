@@ -16,9 +16,17 @@ Route::get('/', 'MainController@index')->name('home');
 Route::get('/categories/{category}', 'MainController@showCategory');
 Route::get('/videos/{video}', 'MainController@showVideo');
 
+//User
+Route::group([
+    'middleware' => 'auth',
+], function() {
+
+    Route::resource('users', 'UsersController',['except' => 'create,store']);
+});
+
 //Register
-Route::get('/register', 'RegistrationController@create');
-Route::post('/register', 'RegistrationController@store');
+/*Route::get('/register', 'RegistrationController@create');
+Route::post('/register', 'RegistrationController@store');*/
 
 //Login/out
 Route::get('/login', 'SessionsController@create')->name('login');
