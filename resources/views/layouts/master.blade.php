@@ -20,8 +20,13 @@
     </div>
     @endif
 
+    <hr>
+
     <main role="main">
+        <div class="row">
+            @include('layouts.sidebar')
       		@yield('content')
+        </div>
     </main>
     </div>
 

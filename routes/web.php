@@ -11,16 +11,21 @@
 |
 */
 
-Route::get('/',  function () {
-    return view('layouts.master');})->name('home');
+//Index
+Route::get('/', 'MainController@index')->name('home');
+Route::get('/categories/{category}', 'MainController@showCategory');
+Route::get('/videos/{video}', 'MainController@showVideo');
 
+//Register
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');
 
+//Login/out
 Route::get('/login', 'SessionsController@create')->name('login');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 
+//Admin
 Route::group([
         'middleware' => 'admin',
         'prefix' => '/dashboard'

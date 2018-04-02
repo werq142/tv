@@ -36,12 +36,12 @@ class VideosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate(request(),[
+        $this->validate(request(), [
             'video_name' => 'required|max:32',
             'video_description' => 'required',
             'imdb' => 'required',
@@ -55,21 +55,21 @@ class VideosController extends Controller
 
         $video_logo = $request->file('video_logo');
         $video_logo_name = uniqid();
-        $video_logo_name = $video_logo_name.'.png';
-        $video_logo->move(public_path() . '/images/logos',  $video_logo_name);
-        $video_logo_name = 'images/logos/'.$video_logo_name;
+        $video_logo_name = $video_logo_name . '.png';
+        $video_logo->move(public_path() . '/images/logos', $video_logo_name);
+        $video_logo_name = 'images/logos/' . $video_logo_name;
 
         $video_background = $request->file('video_background');
         $video_background_name = uniqid();
-        $video_background_name = $video_background_name.'.png';
+        $video_background_name = $video_background_name . '.png';
         $video_background->move(public_path() . '/images/backgrounds', $video_background_name);
-        $video_background_name = 'images/backgrounds/'.$video_background_name;
+        $video_background_name = 'images/backgrounds/' . $video_background_name;
 
         $video_file = $request->file('video_file');
         $video_file_name = uniqid();
-        $video_file_name = $video_file_name.'.mp4';
+        $video_file_name = $video_file_name . '.mp4';
         $video_file->move(public_path() . '/all_videos', $video_file_name);
-        $video_file_name = 'all_videos/'.$video_file_name;
+        $video_file_name = 'all_videos/' . $video_file_name;
 
         Video::create([
             'video_name' => $request['video_name'],
@@ -83,7 +83,7 @@ class VideosController extends Controller
             'category_id' => $request['category']
         ]);
         session()->flash(
-            'message', "You added a video ".$request['video_name']."."
+            'message', "You added a video " . $request['video_name'] . "."
         );
 
         return redirect()->action('VideosController@index');
@@ -92,7 +92,7 @@ class VideosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -105,7 +105,7 @@ class VideosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -119,14 +119,14 @@ class VideosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $video = Video::find($id);
-        $this->validate(request(),[
+        $this->validate(request(), [
             'video_name' => 'required|max:32',
             'video_description' => 'required',
             'imdb' => 'required',
@@ -143,36 +143,33 @@ class VideosController extends Controller
         $video->age_control = $request['age_control'];
         $video->published_date = $request['published_date'];
 
-        if ($request['video_logo'])
-        {
+        if ($request['video_logo']) {
             File::Delete(public_path($video->video_logo));
             $video_logo = $request->file('video_logo');
             $video_logo_name = uniqid();
-            $video_logo_name = $video_logo_name.'.png';
-            $video_logo->move(public_path() . '/images/logos',  $video_logo_name);
-            $video_logo_name = 'images/logos/'.$video_logo_name;
+            $video_logo_name = $video_logo_name . '.png';
+            $video_logo->move(public_path() . '/images/logos', $video_logo_name);
+            $video_logo_name = 'images/logos/' . $video_logo_name;
             $video->video_logo = $video_logo_name;
         }
 
-        if ($request['video_background'])
-        {
+        if ($request['video_background']) {
             File::Delete(public_path($video->video_background));
             $video_background = $request->file('video_background');
             $video_background_name = uniqid();
-            $video_background_name = $video_background_name.'.png';
-            $video_background->move(public_path() . '/images/logos',  $video_background_name);
-            $video_background_name = 'images/logos/'.$video_background_name;
+            $video_background_name = $video_background_name . '.png';
+            $video_background->move(public_path() . '/images/logos', $video_background_name);
+            $video_background_name = 'images/logos/' . $video_background_name;
             $video->video_background = $video_background_name;
         }
 
-        if ($request['video_file'])
-        {
+        if ($request['video_file']) {
             File::Delete(public_path($video->video_file));
             $video_file = $request->file('video_file');
             $video_file_name = uniqid();
-            $video_file_name = $video_file_name.'.mp4';
+            $video_file_name = $video_file_name . '.mp4';
             $video_file->move(public_path() . '/all_videos', $video_file_name);
-            $video_file_name = 'all_videos/'.$video_file_name;
+            $video_file_name = 'all_videos/' . $video_file_name;
             $video->video_file = $video_file_name;
         }
 
@@ -184,7 +181,7 @@ class VideosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
