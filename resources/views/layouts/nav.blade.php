@@ -2,10 +2,11 @@
     <div class="container">
         <nav class="nav blog-nav">
             <a class="nav-link active" href="/">Home</a>
-            <a class="nav-link" href="{{ action('CategoriesController@index') }}">Categories</a>
-            <a class="nav-link" href="{{ action('VideosController@index') }}">Videos</a>
 
             @if (Auth::check())
+                @if (Auth::user()->is_admin)
+                    <a class="nav-link" href="{{ action('AdminController@dashboard') }}">Dashboard</a>
+                @endif
                 <a class="nav-link ml-auto"
                    href="{{ action('UsersController@show', Auth::user()->id) }}">{{ Auth::user()->name }}</a>
             @else

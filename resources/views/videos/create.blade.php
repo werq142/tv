@@ -2,7 +2,7 @@
 
 @section ('content')
 
-
+    <div class="col-sm-8 blog-main">
         <h2>Add a video</h2>
         <form method="POST" action="{{ action('VideosController@store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -62,5 +62,6 @@
             @include ('layouts.errors')
 
         </form>
+    </div>
 
 @endsection

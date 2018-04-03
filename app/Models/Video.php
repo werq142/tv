@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Models\Comment;
 
 class Video extends Model
 {
@@ -13,5 +14,21 @@ class Video extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function addComment($body)
+    {
+        $user_id = auth()->user()->id;
+
+        Comment::create([
+        'body' => $body,
+        'video_id' => $this->id,
+        'user_id' => $user_id
+        ]);
     }
 }

@@ -126,6 +126,7 @@ class VideosController extends Controller
     public function update(Request $request, $id)
     {
         $video = Video::find($id);
+
         $this->validate(request(), [
             'video_name' => 'required|max:32',
             'video_description' => 'required',
@@ -137,6 +138,7 @@ class VideosController extends Controller
             'video_file' => 'mimes:mp4',
             'category' => 'required'
         ]);
+
         $video->video_name = $request['video_name'];
         $video->description = $request['video_description'];
         $video->imdb = $request['imdb'];
@@ -187,9 +189,11 @@ class VideosController extends Controller
     public function destroy($id)
     {
         $video = Video::find($id);
+
         File::Delete(storage_path('app/' . $video->video_logo));
         File::Delete(storage_path('app/' . $video->video_background));
         File::Delete(storage_path('app/' . $video->video_file));
+
         $video->delete();
 
         return redirect()->action('VideosController@index');

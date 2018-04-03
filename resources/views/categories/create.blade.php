@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>Add a category</h2>
         <form method="POST" action="{{ action('CategoriesController@store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}

@@ -10,31 +10,34 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => 'ip'], function () {
 
-//Index
-Route::get('/', 'MainController@index')->name('home');
-Route::get('/categories/{category}', 'MainController@showCategory');
-Route::get('/videos/{video}', 'MainController@showVideo');
+    //Index
+    Route::get('/', 'MainController@index')->name('home');
+    Route::get('/categories/{category}', 'MainController@showCategory');
+    Route::get('/videos/{video}', 'MainController@showVideo');
 
-//User
-Route::resource('users', 'UsersController',['except' => 'create,store']);
+    //User
+    Route::resource('users', 'UsersController', ['except' => 'create,store']);
 
-//Register
-/*Route::get('/register', 'RegistrationController@create');
-Route::post('/register', 'RegistrationController@store');*/
+    //Comment
+    Route::post('/videos/{video}/comments', 'CommentsController@store');
 
-//Login/out
-Route::get('/login', 'SessionsController@create')->name('login');
-Route::post('/login', 'SessionsController@store');
-Route::get('/logout', 'SessionsController@destroy');
+    //Login/out
+    Route::get('/login', 'SessionsController@create')->name('login');
+    Route::post('/login', 'SessionsController@store');
+    Route::get('/logout', 'SessionsController@destroy');
 
-//Admin
-Route::group([
+    //Admin
+    Route::group([
         'middleware' => 'admin',
         'prefix' => '/dashboard'
-    ], function() {
+    ], function () {
 
-    Route::resource('categories', 'CategoriesController');
-    Route::resource('videos', 'VideosController');
+        Route::resource('categories', 'CategoriesController');
+        Route::resource('videos', 'VideosController');
+        Route::get('/', 'AdminController@dashboard');
+        Route::get('/registration', 'AdminController@controlRegistration');
+        Route::post('/ip', 'AdminController@addIp');
+    });
 });
-

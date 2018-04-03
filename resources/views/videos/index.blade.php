@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>All videos</h2>
         <a href="{{ action('VideosController@create') }}"><button class="btn btn-success">Add video</button></a>
         @foreach ($videos as $video)

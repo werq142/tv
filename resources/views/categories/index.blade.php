@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>All categories</h2>
         <a href="{{ action('CategoriesController@create') }}"><button class="btn btn-success">Add category</button></a>
         @foreach ($categories as $category)

@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>Edit {{ $category->category_name }}</h2>
         <form method="POST" action="{{ action( 'CategoriesController@update', $category->id) }}" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PATCH">

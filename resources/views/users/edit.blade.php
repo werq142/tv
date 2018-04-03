@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h4>Change the data</h4>
         <form method="POST" action="{{ action('UsersController@update', $user->id) }}" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PATCH">

@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>Edit {{ $video->video_name }}</h2>
         <form method="POST" action="{{ action( 'VideosController@update', $video->id) }}" enctype="multipart/form-data">
             <input name="_method" type="hidden" value="PATCH">

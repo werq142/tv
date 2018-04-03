@@ -42,16 +42,18 @@ class CategoriesController extends Controller
             'category_name' => 'required|max:32',
             'category_image' => 'required|mimes:png,jpeg,jpg'
         ]);
+
         $file = $request->file('category_image');
-        //$image_name =  $file->store('images');
         $image_name = uniqid();
         $image_name = $image_name . '.png';
         $file->move(public_path() . '/images/categories', $image_name);
         $image_name = 'images/categories/' . $image_name;
+
         Category::create([
             'category_name' => $request['category_name'],
             'category_image' => $image_name,
         ]);
+
         session()->flash(
             'message', "You added a category " . $request['category_name'] . "."
         );

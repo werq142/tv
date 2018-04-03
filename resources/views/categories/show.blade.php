@@ -2,7 +2,7 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>Category {{ $category->category_name }}</h2>
             <div>
                 {{ $category->category_name }} <img src="{{ url($category->category_image) }}" width="100px" height="100px">

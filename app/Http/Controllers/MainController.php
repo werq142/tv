@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\Category;
+use App\Models\User;
 
 class MainController extends Controller
 {
@@ -24,5 +25,4 @@ class MainController extends Controller
     {
         return view('index.showVideo', compact('video'));
     }
-
 }

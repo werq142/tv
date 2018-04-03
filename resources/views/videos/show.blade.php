@@ -2,11 +2,10 @@
 
 @section ('content')
 
-    <div class="container">
+    <div class="col-sm-8 blog-main">
         <h2>Video {{ $video->video_name }}</h2>
             <div class="video">
-                <span>Name: {{ $video->video_name }}</span>
-                <span>Description: {{ $video->description }}</span>
+                <span>{{ $video->description }}</span>
                 <a href="{{ action('VideosController@edit', $video->id) }}"><button class="btn">Edit</button></a>
                 <form method="POST" action="{{ action('VideosController@destroy', $video->id) }}">
                     <input name="_method" type="hidden" value="DELETE">
