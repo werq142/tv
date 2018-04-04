@@ -190,9 +190,9 @@ class VideosController extends Controller
     {
         $video = Video::find($id);
 
-        File::Delete(storage_path('app/' . $video->video_logo));
-        File::Delete(storage_path('app/' . $video->video_background));
-        File::Delete(storage_path('app/' . $video->video_file));
+        File::Delete(public_path('/' . $video->video_logo));
+        File::Delete(public_path('/' . $video->video_background));
+        File::Delete(public_path('/' . $video->video_file));
 
         $video->delete();
 

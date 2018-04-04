@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/videos', 'ApiController@videos');
+
+Route::get('/categories', 'ApiController@categories');
+
+Route::get('/users', 'ApiController@users');
+
+Route::post('/login', 'ApiController@storeSession');

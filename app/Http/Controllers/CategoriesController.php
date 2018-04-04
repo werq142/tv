@@ -129,7 +129,7 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
-        File::Delete(storage_path('app/' . $category->category_image));
+        File::Delete(public_path('/' . $category->category_image));
         $category->delete();
 
         return redirect()->action('CategoriesController@index');

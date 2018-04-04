@@ -5,7 +5,11 @@
     <div class="col-sm-8 blog-main">
         <h2>Dashboard</h2>
         <a class="nav-link" href="{{ action('CategoriesController@index') }}">Categories</a>
-        <a class="nav-link" href="{{ action('VideosController@index') }}">Videos</a>
+        @if ($amount['categories'] !=0)
+            <a class="nav-link" href="{{ action('VideosController@index') }}">Videos</a>
+        @else
+            <p>You can't add a video before adding a category!</p>
+        @endif
         <hr>
         <div class="row">
             <div class="col-sm-4">
